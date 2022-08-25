@@ -17,17 +17,17 @@ var bestSellingAlbums = [
   [2011, "Adele", "21"],
 ];
 
-function sayAlbumInfo(anArray) {
+const sayAlbumInfo = anArray => {
   if (anArray.length == 3) {
     var year = anArray[0];
     var artist = anArray[1];
     var album = anArray[2];
 
     return (
-      "In " + year + " the best selling album was " + album + " by " + artist
+      `In ${year} the best selling album was ${album} by ${artist}`
     );
   } else {
-    return "That array is not in the correct format";
+    return `That array is not in the correct format`;
   }
 }
 
@@ -54,16 +54,15 @@ var newYorkCity = {
   settled: 1624,
   mayor: "Eric Adams",
   squareMiles: 472.43,
-  calcManhattanPercentage: function () {
-    var manhattanPercent = this.boroughPopulations.manhattan / this.population;
-    console.log(this);
-    console.log(manhattanPercent.toFixed(4) * 100 + "%");
+  calcManhattanPercentage: () => {
+    var manhattanPercent = newYorkCity.boroughPopulations.manhattan / newYorkCity.population;
+    console.log(`${manhattanPercent.toFixed(4) * 100}%`);
   },
-  comparePopulation: function (city, population) {
+  comparePopulation: (city, population) => {
     if (this.population < population) {
-      console.log("NYC is smaller than " + city);
+      console.log(`NYC is smaller than ${city}`);
     } else {
-      console.log("NYC is bigger than " + city);
+      console.log(`NYC is bigger than ${city}`);
     }
   },
 };
@@ -90,12 +89,13 @@ const findBestSellingAlbumByYear = year => {
 
 // #1: There are four functions above.  Make THREE of these arrow functions: sayAlbumInfo, comparePopulation, and findBestSellingAlbumByYear.  Call all three functions to make sure they still work.
 
-
-
+console.log(sayAlbumInfo([1956, "Harry Belafonte", "Calypso"]))
+newYorkCity.comparePopulation("Boston", 123345)
+console.log(findBestSellingAlbumByYear(1974))
 
 // #2: Next, make all FOUR functions use template literals in any place where they log or return a concatenated string.  Then, make sure the functions still work.
 
-
+newYorkCity.calcManhattanPercentage()
 
 
 // #3: Here is a simple object:
@@ -105,16 +105,19 @@ var myObj = {
   regularFunction: function () {
     console.log("-- REGULAR FUNCTION --");
     console.log(this);
+    // console.log(this.myName)
   },
   arrowFunction: () => {
     console.log("-- ARROW FUNCTION --");
     console.log(this);
+    // console.log(this.myName)
   },
 };
 
 // Call both functions in the object.  Notice the difference in what "this" refers to in the console.
 
-
+myObj.regularFunction()
+myObj.arrowFunction()
 
 // NOTE: Arrow functions and regular functions handle the "this" keyword differently.  With a regular function, "this" represents the object that CALLS the function.  With an arrow function, this represents the OWNER of the function.
 
@@ -130,6 +133,8 @@ window.console.log(this);
 
 // Knowing this, what is the OWNER of the .log function?  What is the CALLER of the .log function?  Do you think that "under the hood of JavaScript" the .log function is an arrow function or a regular function?
 
+// OWNER IS THE WINDOW OBJECT
+// CALLER IS THE CONSOLE (WHICH IS ON THE WINDOW OBJECT)
 
 
 // #5:  Why do these both log the same thing?
@@ -164,16 +169,24 @@ const myOwnLoopFunction = (callBack, numTimesToLoop) => {
 
 // #7: Call myOwnLoopFunction with generateRandomNumber as its callback.
 
-
+myOwnLoopFunction(generateRandomNumber, 20)
 
 // #8: Write a function called alertAndLog with a parameter called thing.  Make the function do console.log(thing) and alert(thing)
 
-
+const alertAndLog = (thing) => {
+  console.log(thing);
+  alert(thing)
+}
 
 
 // Now write a function called addNumbers.  It should add two numbers that are passed as arguments, and it should also take a callback as a third argument. It should pass the sum of the two numbers to callback.
 
-
+const addNumbers = (num1, num2, callBack) => {
+  var sum = num1 + num2
+  callBack(sum)
+}
 
 
 // Call addNumbers and use alertAndLog as it's callback.
+
+addNumbers(1, 2, alertAndLog);
